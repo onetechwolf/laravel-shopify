@@ -72,7 +72,7 @@ php artisan migrate
 
 ## Setup Host Server
 
-So you don't have to run 'PHP artisan server' all the time 
+So you don't have to run 'PHP artisan serve' all the time 
 
 #### Windows (Apache i.e. xampp)
 1) Open a notedpad via right-click and "Run as Administrator"
