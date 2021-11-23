@@ -211,6 +211,10 @@ class OrderController extends Controller
         return redirect()->route('orders')
                             ->with('status','Order has been deleted.');  
     }
+    public function crearEnvio(Request $request)
+    {
+       //...
+    }
 
 
 }

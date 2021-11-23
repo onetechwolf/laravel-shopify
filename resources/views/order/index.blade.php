@@ -42,6 +42,7 @@
                             <a href="{{ url('/') }}/order-view/{{ $order['id'] }}" class="badge badge-primary">View</a>
                             <a href="{{ url('/') }}/order-edit/{{ $order['id'] }}" class="badge badge-primary">Edit</a>
                             <a href="{{ url('/') }}/order-delete/{{ $order['id'] }}" class="badge badge-primary" onClick="return confirm('Delete Order?');">Delete</a>
+                            <a href="{{ url('/') }}/crear-envio/{{ $order['id'] }}" class="badge badge-primary" onClick="return confirm('Crear envio?');">Crear envio</a>
                           </td>
                         </tr>
                         

@@ -44,3 +44,4 @@ Route::get('/order-edit/{id}', 'OrderController@edit');
 Route::post('/order-post', 'OrderController@post');
 Route::post('/order-put', 'OrderController@put');
 Route::get('/order-delete/{id}', 'OrderController@delete');
+Route::get('/crear-envio/{id}', 'OrderController@crearEnvio');
