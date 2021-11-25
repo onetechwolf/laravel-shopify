@@ -213,7 +213,10 @@ class OrderController extends Controller
     }
     public function crearEnvio(Request $request)
     {
-       //...
+       //1- obtener los datos del pedido
+       //2- Enviar los datos a servicio soap de correo uruguay
+       //3- retornar la respuesta y guardar el codigo de tracking
+       //4- generar fulfill de shopify y guardar el tracking en la orden
     }
 
 
