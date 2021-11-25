@@ -4,8 +4,65 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f34dc2d0ad01b10b2744131697cbadff",
+    "content-hash": "db2014f40f21fd9073dc7e7507687ea7",
     "packages": [
+        {
+            "name": "artisaninweb/laravel-soap",
+            "version": "0.3.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/notfalsedev/laravel-soap.git",
+                "reference": "809073fe1116e3e3daadcf8571fc58b0a9603574"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/notfalsedev/laravel-soap/zipball/809073fe1116e3e3daadcf8571fc58b0a9603574",
+                "reference": "809073fe1116e3e3daadcf8571fc58b0a9603574",
+                "shasum": ""
+            },
+            "require": {
+                "ext-soap": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Artisaninweb\\SoapWrapper\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "SoapWrapper": "Artisaninweb\\SoapWrapper\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Artisaninweb\\SoapWrapper": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael van de Rijt",
+                    "email": "me@mvdrijt.com"
+                }
+            ],
+            "description": "A SoapClient wrapper integration for Laravel",
+            "keywords": [
+                "client",
+                "laravel",
+                "soap",
+                "wrapper"
+            ],
+            "support": {
+                "issues": "https://github.com/notfalsedev/laravel-soap/issues",
+                "source": "https://github.com/notfalsedev/laravel-soap/tree/0.3.0.10"
+            },
+            "time": "2021-05-04T14:48:03+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "v0.1.1",
@@ -766,16 +823,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.1.6",
+            "version": "1.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "627be7fcde84c71aa0f15097fcf48fd5f2be5287"
+                "reference": "3ca8f158ee21efa4bbd4f74bea5730c9b9261e2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/627be7fcde84c71aa0f15097fcf48fd5f2be5287",
-                "reference": "627be7fcde84c71aa0f15097fcf48fd5f2be5287",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3ca8f158ee21efa4bbd4f74bea5730c9b9261e2d",
+                "reference": "3ca8f158ee21efa4bbd4f74bea5730c9b9261e2d",
                 "shasum": ""
             },
             "require": {
@@ -848,7 +905,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/1.1.6"
+                "source": "https://github.com/thephpleague/flysystem/tree/1.1.7"
             },
             "funding": [
                 {
@@ -856,7 +913,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-11-21T11:04:36+00:00"
+            "time": "2021-11-25T19:40:58+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -5227,7 +5284,6 @@
                 "issues": "https://github.com/sebastianbergmann/resource-operations/issues",
                 "source": "https://github.com/sebastianbergmann/resource-operations/tree/master"
             },
-            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {
