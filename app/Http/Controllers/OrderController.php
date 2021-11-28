@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Artisaninweb\SoapWrapper\SoapWrapper;
 use PHPShopify;
 use App\Post;
+use SoapClient;
 
 class OrderController extends Controller
 {
@@ -38,8 +40,11 @@ class OrderController extends Controller
         PHPShopify\AuthHelper::createAuthRequest($this->scopes, $this->redirectUrl, null, null, true);
 
         $shopify = new PHPShopify\ShopifySDK($this->config);
-
-        $orders = $shopify->Order->get();
+        $params = array(
+            'status' => 'any', // open / closed / cancelled / any (Default: open)
+            'limit' => '50'
+        );
+        $orders = $shopify->Order->get($params);
 
         //echo '<pre>';
         //var_dump($orders);
@@ -214,6 +219,115 @@ class OrderController extends Controller
     public function crearEnvio(Request $request)
     {
        //1- obtener los datos del pedido
+       $orderId = $request->route('id');
+
+        PHPShopify\ShopifySDK::config($this->config);
+        PHPShopify\AuthHelper::createAuthRequest($this->scopes, $this->redirectUrl, null, null, true);
+
+        $shopify = new PHPShopify\ShopifySDK($this->config);
+
+        $customers = $shopify->Customer->get();
+        $order = $shopify->Order($orderId)->get();
+        //var_dump($order);
+        //Create the client object
+        $wsdl = "http://ahivatest.correo.com.uy/web/CargaMasivaServicev4?wsdl";
+        $client = new SoapClient($wsdl, array(  'soap_version' => SOAP_1_1,'trace' => true,)); 
+        $namespace = 'http://schemas.xmlsoap.org/soap/envelope/'; 
+
+        $params = array (
+            "arg0" => '216778010014',
+            "arg1" => 'q1w2e3r4',
+            "arg4" => array(
+                    'clave' => 'autoadhesiva',
+                    'valor' => 'si'
+            ),
+            "arg5" => array(
+                'cedulaDestinatario' => '', 
+                'datosdevolucion' => array(
+                    'calle' => '18 DE JULIO',
+                    'departamento' => 'MONTEVIDEO',
+                    'localidad' => 'MONTEVIDEO',
+                    'nroPuerta' => '1234'
+                ),
+                'destinatario' => array(
+                    'celular' => '099999999',
+                    'mail' => 'jhondoe@correo.com.uy',
+                    'nombre' => 'John Doe'
+                ),
+                'lugarEntrega' => array(
+                    'calle' => 'BUENOS AIRES',
+                    'departamento' => 'MONTEVIDEO',
+                    'localidad' => 'MONTEVIDEO',
+                    'manzana' => '',
+                    'nroApto' => '',
+                    'nroPuerta' => '999',
+                    'observacionesDireccion' => '',
+                    'oficinaCorreo' => '',
+                    'solar' => ''
+                ),
+                'paquetesSimples' => array(
+                    'almacenamiento' => '10',
+                    'empaque' => '0',
+                    'motivodevolucion' => '',
+                    'peso' => '5',
+                    'referencia' => 'Caja de lapices',
+                    'responsableServEntrega' => 'DESTINATARIO'
+                ),
+                'soloDestinatario' => '0'
+            ),
+
+        );
+        
+        $response = $client->__soapCall('cargaMasiva'  , array($params));
+        //echo base64_decode($response);
+        
+        //$data = $response->return->envios['codigostrazabilidad'];
+        //echo $data;
+
+        //$phpresponse->ConfirmarCompraResult->NumeroAndreani
+        
+        $descripcionRespuesta = $response->return->descripcionRespuesta;
+        $codigoRespuesta = $response->return->codigoRespuesta;
+        $esError = $response->return->esError;
+        
+        if (empty($esError)) {
+            echo $descripcionRespuesta;
+            $tracking = $response->return->envios->codigostrazabilidad;
+            $etiqueta = $response->return->envios->etiquetasGeneradas;
+            echo $tracking;
+
+            $destination = '../storage/app/public/'.$tracking.'.pdf';
+            $file = fopen($destination, "w+");
+            fputs($file, $etiqueta);
+            fclose($file);
+            $filename = $tracking.'.pdf';
+            header("Cache-Control: public");
+            header("Content-Description: File Transfer");
+            header("Content-Disposition: attachment; filename=$filename");
+            header("Content-Type: application/pdf");
+            header("Content-Transfer-Encoding: binary");
+            readfile($destination);
+            //https://www.correo.com.uy/seguimientodeenvios
+            // $shopify->Order($order->order_id)->Fulfillment->post([
+            //     "location_id" => $shopify->Location->get()[0]['id'],
+            //     "tracking_number" => $tracking,
+            //     "tracking_urls" => ['https://www.correo.com.uy/seguimientodeenvios],
+            //     "notify_customer" => true
+            // ]);
+
+        } else {
+            echo $descripcionRespuesta;
+        };
+        
+        
+
+
+
+
+
+
+
+
        //2- Enviar los datos a servicio soap de correo uruguay
        //3- retornar la respuesta y guardar el codigo de tracking
        //4- generar fulfill de shopify y guardar el tracking en la orden
