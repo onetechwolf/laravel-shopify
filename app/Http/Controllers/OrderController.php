@@ -7,6 +7,8 @@ use Artisaninweb\SoapWrapper\SoapWrapper;
 use PHPShopify;
 use App\Post;
 use SoapClient;
+use Illuminate\Pagination\Paginator;
+
 
 class OrderController extends Controller
 {
@@ -40,11 +42,11 @@ class OrderController extends Controller
         PHPShopify\AuthHelper::createAuthRequest($this->scopes, $this->redirectUrl, null, null, true);
 
         $shopify = new PHPShopify\ShopifySDK($this->config);
-        $params = array(
+        $filters = array(
             'status' => 'any', // open / closed / cancelled / any (Default: open)
-            'limit' => '50'
+            'limit' => '40'
         );
-        $orders = $shopify->Order->get($params);
+        $orders = $shopify->Order->get($filters);
 
         //echo '<pre>';
         //var_dump($orders);

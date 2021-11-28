@@ -30,7 +30,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <img itemprop="logo" data-src="//cdn.shopify.com/s/files/1/0549/8653/9042/files/logo.png?v=1634859407" src="//cdn.shopify.com/s/files/1/0549/8653/9042/files/logo.png?v=1634859407" alt="Guadalupe Cid UY"  style="width:50%">
                     </a>
                 </div>
 

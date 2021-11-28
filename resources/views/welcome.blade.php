@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel Shopify App
+                    Guadalupe Cid by Integra
                 </div>
             </div>
         </div>
